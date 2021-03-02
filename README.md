@@ -6,12 +6,19 @@ virtualenv opentelemetry-venv
 source opentelemetry-venv/bin/activate
 pip install opentelemetry-api opentelemetry-sdk opentelemetry-exporter-jaeger flask opentelemetry-instrumentation-flask opentelemetry-instrumentation-requests
 
-docker run --rm -p 6831:6831/udp -p 6832:6832/udp -p 16686:16686 jaegertracing/all-in-one:1.13 --log-level=debugs
+docker run --rm -p 6831:6831/udp -p 6832:6832/udp -p 16686:16686 jaegertracing/all-in-one
 ```
+
+Run these 2 in 2 separate terminals to start the 2 microservices.
+1. python core.py
+2. python orchestrator.py
 
 Run this to do a sample request out.
 `curl --location --request GET 'localhost:8080/create-node?token=123'`
 
+`curl --location --request GET 'localhost:8080/create-node'` --> Invalid token.
+
+View jaegar @ `http://localhost:16686/`
 
 This program does the following
 1. Client (Curl) calls core service using create-node?token=123.
