@@ -1,13 +1,14 @@
+import time
+
+from flask import Flask, request
 from opentelemetry import trace
 from opentelemetry.exporter import jaeger
-from opentelemetry.sdk.trace import TracerProvider
-from opentelemetry.sdk.trace.export import BatchExportSpanProcessor
 from opentelemetry.instrumentation.flask import FlaskInstrumentor
 from opentelemetry.propagators import inject
-from flask import Flask
-from flask import request
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import BatchExportSpanProcessor
 from requests import get
-import time
+
 trace.set_tracer_provider(TracerProvider())
 tracer = trace.get_tracer(__name__)
 # create a JaegerSpanExporter
